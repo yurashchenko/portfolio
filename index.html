@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>document.documentElement.className+=' js'</script>
+<title>Валентина Юращенко — фотограф</title>
+<meta name="description" content="Про вас, ваші почуття та моменти, до яких хочеться повертатися. Фотограф Валентина Юращенко.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Montserrat:wght@500&family=Unbounded:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Katherine Plus';src:url(fonts/font-1.woff) format('woff');font-weight:400;font-style:normal;font-display:swap}
+:root{
+  --wine:#340505; --red:#a92c25; --paper:#e7e1d8; --card:#f3efe8; --cream:#f1e9df;
+  --head:'Unbounded','Arial Black',sans-serif; --body:'Montserrat','Helvetica Neue',Arial,sans-serif; --script:'Katherine Plus','Marck Script','Brush Script MT',cursive;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--paper);color:var(--wine);font-family:var(--body);font-weight:500;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--head);font-weight:500;margin:0;text-transform:uppercase;line-height:1.12}
+button{font:inherit;color:inherit}
+.script{font-family:var(--script);font-weight:400;text-transform:none;letter-spacing:0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+.bar{display:flex;justify-content:space-between;align-items:center;padding:20px 0;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.bar a{color:inherit;text-decoration:none} .bar nav{display:flex;gap:20px}
+
+/* story card base */
+.story{position:relative;display:flex;flex-direction:column;border-radius:26px;clip-path:inset(0 round 26px);overflow:clip;contain:paint;background:var(--card);border:1px solid rgba(52,5,5,.14);--ln:rgba(52,5,5,.3)}
+.story.dark{background:var(--wine);color:var(--cream);border-color:var(--wine);--ln:rgba(241,233,223,.35)}
+.strip{display:flex;justify-content:space-between;align-items:center;margin:16px 20px 0;padding-bottom:9px;border-bottom:1px solid var(--ln);font-size:10.5px;letter-spacing:.06em;position:relative;z-index:2}
+.body{display:flex;flex-direction:column;flex:1;min-height:0;padding:22px 22px 22px}
+.story h3{font-size:clamp(15px,1.5vw,18px)}
+.story h3 .script{display:block;font-size:46px;line-height:1;margin-top:6px;color:var(--red)}
+.story.dark h3 .script{color:var(--cream)}
+.row{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:12px 8px;flex-wrap:wrap}
+.price{white-space:nowrap;font-size:34px;line-height:1;text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:7px}
+.open-btn{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:9px;padding:10px 13px;border:1px solid currentColor;border-radius:999px;font-family:var(--head);font-size:10px;letter-spacing:.1em;text-transform:uppercase;transition:.25s}
+.open-btn:hover{background:currentColor} .open-btn:hover{color:inherit}
+.story:not(.dark) .open-btn:hover{background:var(--wine);color:var(--cream)}
+.story.dark .open-btn:hover{background:var(--cream);color:var(--wine)}
+.open-btn:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.open-btn i{position:relative;width:11px;height:11px;display:block}
+.open-btn i::before,.open-btn i::after{content:"";position:absolute;left:0;top:50%;width:100%;height:1.5px;background:currentColor;transform:translateY(-50%)}
+.open-btn i::after{transform:translateY(-50%) rotate(90deg)}
+
+/* sheet with details */
+.sheet{position:absolute;inset:0;z-index:5;background:inherit;color:inherit;transform:translateY(104%);transition:transform .5s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;visibility:hidden}
+.story.open .sheet{transform:none;visibility:visible}
+.sheet .close{all:unset;cursor:pointer;font-family:var(--head);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 0}
+.sheet .close:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.sheet-body{padding:18px 22px 24px;display:flex;flex-direction:column;flex:1;min-height:0;overflow-y:auto}
+.gal{position:relative;margin-bottom:6px;flex:none}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:14px;-webkit-overflow-scrolling:touch}
+.track::-webkit-scrollbar{display:none}
+.track img{flex:0 0 100%;width:100%;aspect-ratio:1/1;object-position:50% 25%;object-fit:cover;scroll-snap-align:center;display:block;cursor:zoom-in}
+.gal.land .track img{aspect-ratio:3/2;object-position:50% 50%}
+.gal .nav{all:unset;cursor:pointer;position:absolute;top:calc(50% - 16px);width:32px;height:32px;border-radius:50%;background:rgba(244,236,227,.88);color:#340505;display:flex;align-items:center;justify-content:center;font-size:20px;line-height:1;z-index:2}
+.gal .nav:focus-visible{outline:2px solid #340505;outline-offset:2px}
+.gal .prev{left:8px} .gal .next{right:8px}
+.gal .dots{display:flex;justify-content:center;gap:7px;margin-top:10px}
+.gal .dots i{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.3;transition:.25s}
+.gal .dots i.on{opacity:1}
+.terms-list{list-style:none;counter-reset:t;margin:0;padding:0}
+.terms-list li{counter-increment:t;position:relative;padding:9px 0 9px 28px;font-size:13.5px;border-bottom:1px dashed var(--ln)}
+.terms-list li:last-child{border:0}
+.terms-list li::before{content:counter(t);position:absolute;left:0;top:9px;font-family:var(--head);font-size:12px;color:var(--red);padding-top:1px}
+.wed{color:#f4ece3;--ln:rgba(244,236,227,.5);border-color:#000}
+.wed .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.72)}
+.wed .body{padding:0}
+.paper{position:relative;z-index:2;margin:auto 22px 26px;padding:26px 22px 24px;color:var(--wine);background:#f3f3f1 url(images/img-01.jpg) center/cover no-repeat;box-shadow:0 1px 2px rgba(0,0,0,.25),0 14px 28px rgba(0,0,0,.38);transform:rotate(-.7deg)}
+.paper .sub{margin:10px 0 22px;font-size:12px;letter-spacing:.08em}
+.wed .sheet{color:var(--wine);--ln:rgba(52,5,5,.3)}
+.letter-sheet{background:#f1e6cf!important;color:#3d2219!important;--ln:rgba(61,34,25,.3)!important}
+.letter-sheet .sheet-body{justify-content:center}
+.letter-sheet p{font-family:var(--script);font-size:clamp(32px,3.2vw,40px);line-height:1.25;margin:0 0 26px}
+.letter-sheet .sign{font-family:var(--script);font-size:38px;line-height:1.15;color:var(--red);text-align:right}
+.env-wrap{cursor:pointer}
+.sheet h3{font-size:14px}
+.sheet h3 .script{display:inline!important;font-size:38px!important;margin:0 0 0 8px!important}
+.sheet small{display:block;margin:18px 0 8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+.sheet ul{list-style:none;margin:0;padding:0}
+.sheet li{padding:7px 0 7px 18px;position:relative;font-size:14px;border-bottom:1px dashed var(--ln)}
+.sheet li:last-child{border:0}
+.sheet li::before{content:"";position:absolute;left:0;top:17px;width:8px;height:1px;background:currentColor}
+.sheet .price{margin-top:auto;align-self:flex-end;padding-top:18px}
+
+/* hero */
+.hero{display:grid;gap:26px;padding:8px 0 20px;align-items:center}
+.hero-card{aspect-ratio:3/4.3;max-width:440px;width:100%;margin:0 auto;color:#f4ece3;background:#000;--ln:rgba(244,236,227,.4);border-color:#000}
+.hero-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+.hero-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35) 0,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 48%,rgba(15,1,1,.85) 100%)}
+.hero-card .strip{z-index:2}
+.hero-title{position:absolute;left:0;right:0;bottom:0;padding:0 24px 26px;z-index:2}
+.hero-title h1{font-size:clamp(13px,3.7vw,18px);font-weight:600;line-height:1.05}
+.hero-title .script{display:block;font-size:clamp(26px,7.5vw,36px);line-height:.9;color:#d1544b;margin-top:6px;transform:rotate(-4deg);transform-origin:left}
+.hero-side{text-align:center}
+.lead{font-family:var(--head);font-weight:400;text-transform:uppercase;font-size:12px;line-height:1.45;margin:0 auto 22px;max-width:36ch;letter-spacing:.02em}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;font-family:var(--head);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:15px 32px;border-radius:999px;border:1px solid var(--wine);color:var(--wine);transition:.25s}
+.btn.fill{background:var(--wine);color:var(--cream)}
+.btn:hover{transform:translateY(-2px)}
+@media(min-width:900px){
+  .hero{grid-template-columns:440px 1fr;gap:70px;padding:24px 0 40px;justify-content:center}
+  .hero-side{text-align:left} .hero-side .lead{margin-left:0;font-size:15px} .btns{justify-content:flex-start}
+}
+
+/* sections */
+section{padding:50px 0 0}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-bottom:1px solid rgba(52,5,5,.3);padding-bottom:14px;margin-bottom:26px}
+.sec-head h2{font-size:clamp(22px,4.6vw,36px)}
+.sec-head .script{font-size:40px;color:var(--red)}
+
+.cards{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;max-width:420px;margin:0 auto}
+.cards>.story{flex:0 0 100%;min-width:0}
+@media(min-width:640px){.cards{max-width:820px}.cards>.story{flex-basis:calc((100% - 18px)/2)}}
+
+.cards .story{aspect-ratio:5/8.6}
+
+.photo{margin:18px auto 14px;width:64%;aspect-ratio:3/4}
+.photo img,.duo img,.wide img{width:100%;height:100%;object-fit:cover;display:block}
+.duo{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr);gap:8px;margin-top:16px}
+.duo img{border-radius:3px}
+.wide{margin:14px 20px 0;aspect-ratio:3/2}
+.terms-body h3 small{display:block;font-family:var(--body);font-size:11px;letter-spacing:.16em;opacity:.7;margin-top:8px}
+.letter-card{background:var(--card)}
+.env-wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:10px 16px}
+.env{width:100%;max-width:300px;height:auto;overflow:visible}
+.env .letter{transition:transform .5s ease}
+.letter-card:hover .letter{transform:translateY(-16px)}
+.cap{text-align:center;padding:0 22px 26px;font-family:var(--script);font-size:24px;line-height:1.1;color:var(--red)}
+
+/* works */
+.work{margin-bottom:30px}
+.work h3{font-size:clamp(14px,3vw,18px);margin-bottom:14px;display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.work h3 .script{font-size:32px;color:var(--red)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:12px} .pair.land{grid-template-columns:1fr}
+@media(min-width:620px){.pair.land{grid-template-columns:1fr 1fr}}
+.shot{all:unset;display:block;cursor:zoom-in;border-radius:20px;overflow:hidden;background:#d6cec2;aspect-ratio:3/4}
+.pair.land .shot{aspect-ratio:3/2}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.shot:hover img{transform:scale(1.03)} .shot:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+.lb{position:fixed;inset:0;background:rgba(20,2,2,.92);display:none;align-items:center;justify-content:center;z-index:50;padding:20px;cursor:zoom-out}
+.lb.on{display:flex} .lb img{max-width:100%;max-height:100%;border-radius:12px}
+.lb-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:18px;color:#f4eee6;font-family:var(--head);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+
+footer{padding:54px 0 40px;text-align:center}
+footer b{display:block;font-family:var(--head);font-weight:500;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+footer span{font-family:var(--script);font-size:36px;color:var(--red)}
+
+.btn{cursor:pointer;background:transparent}
+.terms-cta{display:flex;justify-content:center;margin-top:26px}
+.terms-cta .btn{padding:17px 38px}
+.modal{position:fixed;inset:0;background:rgba(20,2,2,.72);display:none;align-items:center;justify-content:center;z-index:60;padding:20px}
+.modal.on{display:flex}
+.modal-panel{background:var(--card);color:var(--wine);border-radius:26px;width:100%;max-width:440px;max-height:88vh;display:flex;flex-direction:column;overflow:hidden;--ln:rgba(52,5,5,.3)}
+.modal-panel .strip{margin-top:16px}
+.modal-panel .close{all:unset;cursor:pointer;font-family:var(--head);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 0}
+.modal-panel .close:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.modal-body{padding:22px 22px 26px;overflow-y:auto}
+.modal-body h3{font-size:14px}
+.modal-body h3 .script{display:inline;font-size:38px;margin-left:8px;color:var(--red)}
+.modal-body .terms-list{margin-top:14px}
+.js .reveal{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s ease} .js .reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.sheet{transition:none}html{scroll-behavior:auto}}
+
+/* compact variant */
+.cards{align-items:flex-start;justify-content:center}
+.cards .story.c{aspect-ratio:auto}
+.story.c .head{display:grid;grid-template-columns:minmax(0,1fr) 34%;gap:16px;align-items:end;padding:20px 22px 22px;transition:grid-template-columns .5s cubic-bezier(.2,.8,.2,1),gap .5s}
+.story.c.open .head{grid-template-columns:minmax(0,1fr) 0fr;gap:0}
+.story.c .thumb{min-width:0;overflow:hidden;aspect-ratio:3/4;border-radius:3px}
+.story.c .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.story.c .txt{display:flex;flex-direction:column;gap:16px;min-width:0}
+.story.c h3 .script{font-size:42px}
+.story.c .row{margin-top:0}
+.story.c .price{font-size:30px}
+.det{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s cubic-bezier(.2,.8,.2,1)}
+.story.open .det{grid-template-rows:1fr}
+.det-in{min-height:0;overflow:hidden;visibility:hidden;transition:visibility 0s .5s}
+.story.open .det-in{visibility:visible;transition-delay:0s}
+.story.c .det-in{padding:0 22px}
+.story.c .det-in::after{content:"";display:block;height:22px}
+.story.c.wed .paper .det-in{padding:0}
+.story.c.wed .paper .det-in::after{height:4px}
+.det .gal{margin-top:16px}
+.det small{display:block;margin:18px 0 8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.7}
+.det ul{list-style:none;margin:0;padding:0}
+.det li{padding:7px 0 7px 18px;position:relative;font-size:14px;border-bottom:1px dashed var(--ln)}
+.det li:last-child{border:0}
+.det li::before{content:"";position:absolute;left:0;top:17px;width:8px;height:1px;background:currentColor}
+.open-btn i::after{transition:opacity .25s}
+.story.open .open-btn i::after{opacity:0}
+.story.c.wed{min-height:0}
+.story.c.wed .paper{margin:140px 22px 22px;padding:24px 22px 22px;--ln:rgba(52,5,5,.3)}
+.story.c.wed .paper .sub{margin:8px 0 18px}
+.story.c.letter-card .env-wrap{flex:none;padding:4px 20px 0}
+.story.c .env{max-width:200px}
+.letter-text p{font-family:var(--script);font-size:34px;line-height:1.2;margin:6px 0 18px}
+.letter-text .sign{font-family:var(--script);font-size:36px;line-height:1.15;color:var(--red);text-align:right}
+.story.c.wed .bgimg{object-position:50% 50%}
+.paper.env-paper .env-wrap{padding:0;margin-bottom:10px;display:flex;justify-content:center;cursor:pointer;flex:none}
+.paper.env-paper .env{max-width:190px}
+.paper.env-paper .letter-text{padding-top:6px}
+.paper .letter-text p{margin-top:10px}
+.gal.tall .track img{aspect-ratio:4/5;object-position:50% 40%}
+.gal.mid .track img{object-position:50% 55%}
+.ig{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border:1px solid var(--wine);border-radius:50%;color:var(--wine);margin-top:18px;transition:.25s}
+.ig:hover{background:var(--wine);color:var(--cream);transform:translateY(-2px)}
+.ig:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar"><a href="#top">Валентина Юращенко</a><nav><a href="#price">Прайс</a><a href="#" data-open-terms>Умови</a></nav></header>
+
+  <main id="top">
+    <div class="hero">
+      <article class="story hero-card reveal">
+        <img src="images/img-02.jpg" alt="Фотограф Валентина Юращенко" >
+        <div class="strip"><span>фотограф</span><span>price</span></div>
+        <div class="hero-title"><h1>Валентина<br>Юращенко</h1><span class="script">фотограф</span></div>
+      </article>
+      <div class="hero-side reveal">
+        <p class="lead">Про вас, ваші почуття та моменти, до яких хочеться повертатися</p>
+        <div class="btns"><a class="btn fill" href="#price">Прайс</a><button class="btn" type="button" data-open-terms>Умови</button></div>
+      </div>
+    </div>
+
+    <section id="price">
+      <div class="sec-head"><h2>Прайс</h2><span class="script">на мої послуги</span></div>
+      <div class="cards">
+        <article class="story c wed reveal">
+          <img class="bgimg" src="images/img-03.jpg" alt="Індивідуальна" style="object-position:50% 50%">
+          <div class="strip"><span>фотограф</span><span>price</span></div>
+          <div class="paper">
+            <h3>Індивідуальна<span class="script">зйомка</span></h3>
+            
+            <div class="row"><button class="open-btn" type="button" aria-expanded="false" data-l="Детальніше"><span class="lbl">Детальніше</span><i></i></button><span class="price script">3000 грн</span></div>
+            <div class="det"><div class="det-in"><div class="gal tall mid" data-photos="0,1,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30"><div class="track"></div><button class="nav prev" type="button" aria-label="Попереднє фото">‹</button><button class="nav next" type="button" aria-label="Наступне фото">›</button><div class="dots"></div></div><small>Включено</small><ul><li>1 година зйомки</li><li>85 фото в обробці та легкій ретуші</li><li>допомога у виборі локації, образу та позування</li><li>готові фото протягом 9 днів</li></ul></div></div>
+          </div>
+        </article>
+        <article class="story c wed reveal">
+          <img class="bgimg" src="images/img-04.jpg" alt="Love Story" style="object-position:50% 50%">
+          <div class="strip"><span>фотограф</span><span>price</span></div>
+          <div class="paper">
+            <h3>Love Story<span class="script">сімейна</span></h3>
+            
+            <div class="row"><button class="open-btn" type="button" aria-expanded="false" data-l="Детальніше"><span class="lbl">Детальніше</span><i></i></button><span class="price script">3500 грн</span></div>
+            <div class="det"><div class="det-in"><div class="gal tall mid" data-photos="37,38,2,3,31,32,33,34,35,36"><div class="track"></div><button class="nav prev" type="button" aria-label="Попереднє фото">‹</button><button class="nav next" type="button" aria-label="Наступне фото">›</button><div class="dots"></div></div><small>Включено</small><ul><li>1 година зйомки</li><li>100 фотографій в обробці та легкій ретуші</li><li>допомога у виборі локації, образу та позування</li><li>готові фото протягом 9 днів</li></ul></div></div>
+          </div>
+        </article>
+        <article class="story c wed reveal">
+          <img class="bgimg" src="images/img-05.jpg" alt="Wedding Mini">
+          <div class="strip"><span>фотограф</span><span>price</span></div>
+          <div class="paper">
+            <h3>Wedding<span class="script">mini</span></h3>
+            <p class="sub">розпис + прогулянка</p>
+            <div class="row"><button class="open-btn" type="button" aria-expanded="false" data-l="Детальніше"><span class="lbl">Детальніше</span><i></i></button><span class="price script">5000 грн</span></div>
+            <div class="det"><div class="det-in"><div class="gal tall" data-photos="4,5,6,7,8,9,10,11,12,13,14,15"><div class="track"></div><button class="nav prev" type="button" aria-label="Попереднє фото">‹</button><button class="nav next" type="button" aria-label="Наступне фото">›</button><div class="dots"></div></div><small>Включено</small><ul><li>розпис + прогулянка</li><li>1,5 години зйомки</li><li>120+ фото в обробці та легкій ретуші</li><li>допомога з підбором локації та позування</li><li>готові фото протягом 14 днів</li></ul></div></div>
+          </div>
+        </article>
+        <article class="story c letter-card reveal">
+          <div class="strip"><span>фотограф</span><span>price</span></div>
+          <div class="env-wrap"><svg class="env" viewBox="0 0 320 280" role="img" aria-label="Конверт з листом">
+<g transform="rotate(-9 160 160)">
+<rect x="30" y="100" width="260" height="150" rx="8" fill="#7d1a17"/>
+<polygon points="30,100 160,8 290,100" fill="#a32e28"/>
+<g class="letter">
+<rect x="58" y="46" width="204" height="160" rx="3" fill="#f1e6cf" stroke="#d6c4a0"/>
+<text x="160" y="84" text-anchor="middle" font-family="Katherine Plus, Marck Script, cursive" font-size="22" fill="#4a2a22">Маленьке нагадування</text>
+<text x="160" y="112" text-anchor="middle" font-family="Katherine Plus, Marck Script, cursive" font-size="26" fill="#4a2a22">для вас</text>
+<text x="160" y="140" text-anchor="middle" font-family="Katherine Plus, Marck Script, cursive" font-size="22" fill="#a92c25">♡</text>
+</g>
+<polygon points="30,250 30,100 165,192" fill="#a32c26"/>
+<polygon points="290,250 290,100 155,192" fill="#942520"/>
+<polygon points="30,250 160,158 290,250" fill="#b5362f"/>
+</g></svg></div>
+          <div class="row" style="justify-content:center;padding:4px 22px 22px"><button class="open-btn" type="button" aria-expanded="false" data-l="Відкрити лист"><span class="lbl">Відкрити лист</span><i></i></button></div>
+          <div class="det"><div class="det-in"><div class="letter-text"><p>Нехай це буде вашим маленьким нагадуванням: ви прекрасні саме такі, як є. Не забувайте про це</p><div class="sign">З теплом,<br>ваша фотографиня</div></div></div></div>
+        </article>
+      </div>
+  <div class="terms-cta reveal"><button class="btn" type="button" data-open-terms>Умови бронювання</button></div>
+    </section>
+
+  </main>
+
+  <footer><b>Валентина Юращенко</b><span>фотограф</span>
+    <div><a class="ig" href="https://www.instagram.com/ph.yurashchenko?exln=MWphYzZzZzN4OTh3aA==" target="_blank" rel="noopener noreferrer" aria-label="Instagram: ph.yurashchenko"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r=".7" fill="currentColor"/></svg></a></div></footer>
+</div>
+<div class="modal" id="terms-modal" role="dialog" aria-modal="true" aria-label="Умови бронювання" aria-hidden="true">
+  <div class="modal-panel">
+    <div class="strip"><span>фотограф</span><button class="close" type="button">Закрити ×</button></div>
+    <div class="modal-body"><h3>Умови<span class="script">бронювання</span></h3><ol class="terms-list"><li>Запис відбувається по передоплаті 500 грн. Решта сплачується відразу після зйомки</li><li>Оренда студії, послуги візажистів та вхід на платні локації оплачуються окремо</li><li>Оригінали фото не надаю (окрім випадків, передбачених попередньою домовленістю)</li><li>Фото для обробки я обираю сама, враховуючи ваші побажання</li><li>Готові фото ви отримуєте через онлайн-галерею</li></ol></div>
+  </div>
+</div>
+<div class="lb" id="lb" role="dialog" aria-label="Фото"><span class="lb-x">Закрити</span><img alt=""></div>
+<script>
+var PH=["images/img-06.jpg", "images/img-07.jpg", "images/img-08.jpg", "images/img-09.jpg", "images/img-10.jpg", "images/img-11.jpg", "images/img-12.jpg", "images/img-13.jpg", "images/img-14.jpg", "images/img-15.jpg", "images/img-16.jpg", "images/img-17.jpg", "images/img-18.jpg", "images/img-19.jpg", "images/img-20.jpg", "images/img-21.jpg", "images/img-22.jpg", "images/img-23.jpg", "images/img-24.jpg", "images/img-25.jpg", "images/img-26.jpg", "images/img-27.jpg", "images/img-28.jpg", "images/img-29.jpg", "images/img-30.jpg", "images/img-31.jpg", "images/img-32.jpg", "images/img-33.jpg", "images/img-34.jpg", "images/img-35.jpg", "images/img-36.jpg", "images/img-37.jpg", "images/img-38.jpg", "images/img-39.jpg", "images/img-40.jpg", "images/img-41.jpg", "images/img-42.jpg", "images/img-43.jpg", "images/img-44.jpg"];
+var lb=document.getElementById('lb'),lbi=lb.querySelector('img');
+function setOpen(card,on){
+  card.classList.toggle('open',on);
+  var s=card.querySelector('.sheet'); if(s)s.setAttribute('aria-hidden',on?'false':'true');
+  var b=card.querySelector('.open-btn'); if(b){b.setAttribute('aria-expanded',on?'true':'false');var l=b.querySelector('.lbl');if(l)l.textContent=on?'Згорнути':b.dataset.l}
+}
+document.querySelectorAll('.gal').forEach(function(g){
+  var tr=g.querySelector('.track'),dots=g.querySelector('.dots'),ids=g.dataset.photos.split(',');
+  ids.forEach(function(i){var im=document.createElement('img');im.src=PH[+i];im.alt='Фото зйомки';im.addEventListener('click',function(){lbi.src=im.src;lb.classList.add('on')});tr.appendChild(im);dots.appendChild(document.createElement('i'))});
+  var d=dots.children;d[0].classList.add('on');
+  function upd(){var n=Math.round(tr.scrollLeft/tr.clientWidth);for(var k=0;k<d.length;k++)d[k].classList.toggle('on',k===n)}
+  tr.addEventListener('scroll',upd);
+  g.querySelector('.prev').addEventListener('click',function(){tr.scrollBy({left:-tr.clientWidth,behavior:'smooth'})});
+  g.querySelector('.next').addEventListener('click',function(){tr.scrollBy({left:tr.clientWidth,behavior:'smooth'})});
+});
+var tm=document.getElementById('terms-modal'),lastF=null;
+function tOpen(e){if(e)e.preventDefault();lastF=document.activeElement;tm.classList.add('on');tm.setAttribute('aria-hidden','false');tm.querySelector('.close').focus()}
+function tClose(){tm.classList.remove('on');tm.setAttribute('aria-hidden','true');if(lastF)lastF.focus()}
+document.querySelectorAll('[data-open-terms]').forEach(function(b){b.addEventListener('click',tOpen)});
+tm.querySelector('.close').addEventListener('click',tClose);
+tm.addEventListener('click',function(e){if(e.target===tm)tClose()});
+document.querySelectorAll('.env-wrap').forEach(function(w){w.addEventListener('click',function(){var c=w.closest('.story');setOpen(c,!c.classList.contains('open'))})});
+document.querySelectorAll('.open-btn').forEach(function(b){b.addEventListener('click',function(){var c=b.closest('.story');setOpen(c,!c.classList.contains('open'))})});
+document.querySelectorAll('.sheet .close').forEach(function(b){b.addEventListener('click',function(){setOpen(b.closest('.story'),false)})});
+document.querySelectorAll('.shot').forEach(function(s){s.addEventListener('click',function(){lbi.src=s.querySelector('img').src;lb.classList.add('on')})});
+lb.addEventListener('click',function(){lb.classList.remove('on')});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){lb.classList.remove('on');if(tm.classList.contains('on'))tClose();document.querySelectorAll('.story.open').forEach(function(c){setOpen(c,false)})}});
+var els=document.querySelectorAll('.reveal');
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.1});els.forEach(function(el){io.observe(el)})}else{els.forEach(function(el){el.classList.add('in')})}
+</script>
+</body>
+</html>
